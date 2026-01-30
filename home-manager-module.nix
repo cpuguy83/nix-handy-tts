@@ -14,6 +14,8 @@ in
 
     package = lib.mkOption {
       type = lib.types.package;
+      default = pkgs.handy;
+      defaultText = lib.literalExpression "pkgs.handy";
       description = "The Handy package to use";
     };
   };

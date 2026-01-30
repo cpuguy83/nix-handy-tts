@@ -332,6 +332,11 @@
         inherit handy handy-unwrapped frontend;
       };
 
+      overlays.default = final: prev: {
+        handy = handy;
+        handy-unwrapped = handy-unwrapped;
+      };
+
       homeManagerModules = {
         handy = import ./home-manager-module.nix;
         default = self.homeManagerModules.handy;

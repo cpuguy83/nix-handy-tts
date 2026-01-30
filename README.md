@@ -13,12 +13,31 @@ Add the flake to your inputs:
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     home-manager.url = "github:nix-community/home-manager";
-    handy.url = "github:YOUR_USERNAME/nix-handy-tts";
+    handy = {
+      url = "github:YOUR_USERNAME/nix-handy-tts";
+      inputs.nixpkgs.follows = "nixpkgs";
+      # If you also use rust-overlay in your flake:
+      # inputs.rust-overlay.follows = "rust-overlay";
+    };
   };
 }
 ```
 
-Import the module and enable it:
+Import the module and enable it. You'll also need to apply the overlay to get `pkgs.handy`:
+
+```nix
+{ inputs, pkgs, ... }:
+
+{
+  imports = [ inputs.handy.homeManagerModules.default ];
+
+  nixpkgs.overlays = [ inputs.handy.overlays.default ];
+
+  services.handy.enable = true;
+}
+```
+
+Alternatively, you can specify the package explicitly without using the overlay:
 
 ```nix
 { inputs, pkgs, ... }:
@@ -65,6 +84,10 @@ The flake provides several packages:
 ## Home Manager Module
 
 - `homeManagerModules.default` / `homeManagerModules.handy` - Installs Handy and its desktop entry
+
+## Overlay
+
+- `overlays.default` - Adds `handy` and `handy-unwrapped` to pkgs
 
 ## Development
 
