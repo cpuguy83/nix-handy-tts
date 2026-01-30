@@ -158,7 +158,7 @@
       };
 
       # Build using rustPlatform for better compatibility
-      handy = pkgs.rustPlatform.buildRustPackage {
+      handy-unwrapped = pkgs.rustPlatform.buildRustPackage {
         pname = "handy";
         inherit version;
 
@@ -273,12 +273,13 @@
       };
 
       # Wrap handy in an FHS environment since Tauri hardcodes /usr/lib/Handy/resources/
-      handyFHS = pkgs.buildFHSEnv {
+      # Wrap handy in an FHS environment since Tauri hardcodes /usr/lib/Handy/resources/
+      handy = pkgs.buildFHSEnv {
         name = "handy";
         targetPkgs =
           pkgs:
           [
-            handy
+            handy-unwrapped
           ]
           ++ runtimeLibs;
 
@@ -296,11 +297,11 @@
         # Create the expected /usr/lib/Handy/resources/ structure and copy desktop files
         extraInstallCommands = ''
                     mkdir -p $out/usr/lib/Handy
-                    ln -s ${handy}/lib/Handy/resources $out/usr/lib/Handy/resources
+                    ln -s ${handy-unwrapped}/lib/Handy/resources $out/usr/lib/Handy/resources
                     
                     # Copy icons from the unwrapped package
                     mkdir -p $out/share
-                    ln -s ${handy}/share/icons $out/share/icons
+                    ln -s ${handy-unwrapped}/share/icons $out/share/icons
                     
                     # Create desktop entry pointing to the FHS wrapper
                     mkdir -p $out/share/applications
@@ -319,16 +320,16 @@
           EOF
         '';
 
-        runScript = "${handy}/bin/handy";
+        runScript = "${handy-unwrapped}/bin/handy";
 
-        meta = handy.meta;
+        meta = handy-unwrapped.meta;
       };
 
     in
     {
       packages.${system} = {
-        default = handyFHS;
-        inherit handy handyFHS frontend;
+        default = handy;
+        inherit handy handy-unwrapped frontend;
       };
 
       homeManagerModules = {

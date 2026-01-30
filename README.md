@@ -62,22 +62,12 @@ For global hotkeys to work, you may need to:
 2. Enable "Experimental Features" in Handy settings
 3. Switch to "Handy Keys" keyboard implementation in settings
 
-### Running from Terminal
-
-Handy is a tray application. If running from a terminal, background it:
-
-```bash
-handy &
-```
-
-Do not use Ctrl+Z to suspend the process as it may cause system input to freeze.
-
 ## Packages
 
 The flake provides several packages:
 
-- `default` / `handyFHS` - Handy wrapped in an FHS environment (recommended)
-- `handy` - Unwrapped Handy binary
+- `default` / `handy` - Handy wrapped in an FHS environment (recommended)
+- `handy-unwrapped` - Unwrapped Handy binary
 - `frontend` - Just the frontend assets
 
 ## Development
