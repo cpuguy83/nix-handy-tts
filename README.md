@@ -14,7 +14,7 @@ Add the flake to your inputs:
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     home-manager.url = "github:nix-community/home-manager";
     handy = {
-      url = "github:YOUR_USERNAME/nix-handy-tts";
+      url = "github:YOUR_USERNAME/nix-handy-stt";
       inputs.nixpkgs.follows = "nixpkgs";
       # If you also use rust-overlay in your flake:
       # inputs.rust-overlay.follows = "rust-overlay";
@@ -62,13 +62,13 @@ Alternatively, you can specify the package explicitly without using the overlay:
 Run directly:
 
 ```bash
-nix run github:YOUR_USERNAME/nix-handy-tts
+nix run github:YOUR_USERNAME/nix-handy-stt
 ```
 
 Or build and run:
 
 ```bash
-nix build github:YOUR_USERNAME/nix-handy-tts
+nix build github:YOUR_USERNAME/nix-handy-stt
 ./result/bin/handy &
 ```
 
