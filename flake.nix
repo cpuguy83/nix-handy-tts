@@ -22,15 +22,38 @@
         "aarch64-linux"
       ];
       forAllSystems = nixpkgs.lib.genAttrs supportedSystems;
+
+      wrapHandy =
+        pkgs: handy-pkg:
+        pkgs.symlinkJoin {
+          name = "handy-wrapped";
+          paths = [ handy-pkg ];
+          nativeBuildInputs = [ pkgs.makeWrapper ];
+          postBuild = ''
+            wrapProgram $out/bin/handy \
+              --prefix PATH : "${
+                pkgs.lib.makeBinPath [
+                  pkgs.xdotool
+                  pkgs.wtype
+                ]
+              }"
+          '';
+        };
     in
     {
-      packages = forAllSystems (system: {
-        default = handy.packages.${system}.default;
-        handy = handy.packages.${system}.handy;
-      });
+      packages = forAllSystems (
+        system:
+        let
+          wrapped = wrapHandy nixpkgs.legacyPackages.${system} handy.packages.${system}.default;
+        in
+        {
+          default = wrapped;
+          handy = wrapped;
+        }
+      );
 
       overlays.default = final: prev: {
-        handy = handy.packages.${final.system}.default;
+        handy = wrapHandy final handy.packages.${final.system}.default;
       };
 
       homeManagerModules = {
