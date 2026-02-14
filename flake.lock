@@ -1,29 +1,32 @@
 {
   "nodes": {
-    "handy-src": {
-      "flake": false,
+    "handy": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
       "locked": {
-        "lastModified": 1769950724,
-        "narHash": "sha256-BnobI1HgZmhW5sr3MDl4rxhTcxcq6jNajQsCTLZlIH0=",
+        "lastModified": 1770943285,
+        "narHash": "sha256-p89OyRpIJ+CnSJ7CxLNPFV/NHcX/NOyq6skh5LgmUSc=",
         "owner": "cjpais",
         "repo": "Handy",
-        "rev": "e2028a4b8245e854442e1c1e77321fa8f9b7c06e",
+        "rev": "3b88717091a1c965ce96ab7e7f7d4629c1c9f258",
         "type": "github"
       },
       "original": {
         "owner": "cjpais",
-        "ref": "v0.7.1",
         "repo": "Handy",
         "type": "github"
       }
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1770169770,
-        "narHash": "sha256-awR8qIwJxJJiOmcEGgP2KUqYmHG4v/z8XpL9z8FnT1A=",
+        "lastModified": 1770843696,
+        "narHash": "sha256-LovWTGDwXhkfCOmbgLVA10bvsi/P8eDDpRudgk68HA8=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "aa290c9891fa4ebe88f8889e59633d20cc06a5f2",
+        "rev": "2343bbb58f99267223bc2aac4fc9ea301a155a16",
         "type": "github"
       },
       "original": {
@@ -35,29 +38,8 @@
     },
     "root": {
       "inputs": {
-        "handy-src": "handy-src",
-        "nixpkgs": "nixpkgs",
-        "rust-overlay": "rust-overlay"
-      }
-    },
-    "rust-overlay": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1770260791,
-        "narHash": "sha256-ADTBfENFjRVDQMcCycyX/pAy6NFI/Ct6Mrar3gsmXI0=",
-        "owner": "oxalica",
-        "repo": "rust-overlay",
-        "rev": "42ec85352e419e601775c57256a52f6d48a39906",
-        "type": "github"
-      },
-      "original": {
-        "owner": "oxalica",
-        "repo": "rust-overlay",
-        "type": "github"
+        "handy": "handy",
+        "nixpkgs": "nixpkgs"
       }
     }
   },
